@@ -1,5 +1,8 @@
 // ===== Tint Maps - main.js (方法 A：從 config.js 讀取金鑰) =====
 
+let map;
+let markers = [];
+
 // ✅ 1. 動態載入 Google Maps API
 function loadGoogleMapsScript() {
   const script = document.createElement("script");
@@ -9,7 +12,7 @@ function loadGoogleMapsScript() {
   document.head.appendChild(script);
 }
 
-// ✅ 2. 定義 Google Maps callback（API 載入後觸發）
+// ✅ 2. 註冊 Google Maps callback（API 載入後觸發）
 window.initMap = function () {
   map = new google.maps.Map(document.getElementById("map"), {
     center: CONFIG.DEFAULT_CENTER,
@@ -27,27 +30,7 @@ window.addEventListener("load", () => {
   loadGoogleMapsScript();
 });
 
-
-
-// ===== main.js 第 1 段：地圖初始化與店家渲染 =====
-
-let map;
-let markers = [];
-
-// ✅ 初始化 Google Maps
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: CONFIG.DEFAULT_CENTER,
-    zoom: CONFIG.DEFAULT_ZOOM,
-    disableDefaultUI: true,
-    styles: CONFIG.USE_CUSTOM_MAP_STYLE ? getCustomMapStyle() : null
-  });
-
-  renderStoreMarkers(stores);
-  renderStoreCards(stores);
-}
-
-// ✅ 套用 map-style.json 自訂樣式
+// ✅ 自訂地圖樣式讀取
 function getCustomMapStyle() {
   const styleTag = document.getElementById("map-style");
   try {
@@ -86,12 +69,7 @@ function clearAllMarkers() {
   markers = [];
 }
 
-// 🔁 頁面載入完成後初始化
-window.addEventListener("load", () => {
-  if (typeof google !== "undefined") {
-    initMap();
-  }
-});
+
 
 
 // ===== main.js 第 2 段：卡片渲染與展開互動 =====
