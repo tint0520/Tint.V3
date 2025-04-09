@@ -81,13 +81,13 @@ function renderStoreCards(storeList) {
   storeList.forEach((store) => {
     const card = document.createElement("div");
     card.className = "card";
-    card.innerHTML = `
-      <img src="${store.images[0]}" alt="${store.name}" />
-      <div class="card-content">
-        <h3>${store.name}</h3>
-        <p>${store.distance}</p>
-      </div>
-    `;
+   card.innerHTML = `
+  <img src="${store.images[0]}" alt="${store.name}" />
+  <div class="card-content">
+    <h3>${store.name}</h3>
+    <p>${store.distance}</p>
+  </div>
+`;
     card.addEventListener("click", () => openExpandedCard(store));
     container.appendChild(card);
   });
