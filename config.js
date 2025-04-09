@@ -1,4 +1,4 @@
-// config.js - Tint Maps 設定參數
+// config.js
 
 const CONFIG = {
   GOOGLE_MAPS_API_KEY: "AIzaSyBLCB3EKFwsIqPwEEL_hxL7zluVpnzcCNM",
