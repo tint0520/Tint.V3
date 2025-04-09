@@ -24,10 +24,8 @@
   <!-- 主樣式 -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Google Maps API 載入（動態填入金鑰） -->
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=places">
-  </script>
+ <!-- ❗ 不要填 key 也不要加 callback -->
+<script defer src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
   <!-- 自訂地圖樣式設定（粉色系） -->
   <script type="application/json" id="map-style" src="map-style.json"></script>
