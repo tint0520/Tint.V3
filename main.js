@@ -111,7 +111,10 @@ function openExpandedCard(store) {
   document.getElementById("btn-direction").href =
     `https://www.google.com/maps/dir/?api=1&destination=${store.lat},${store.lng}`;
   document.getElementById("btn-booking").href = store.booking || "#";
-
+  
+// ✅ 加上這一行：讓右下收藏 icon 跟著狀態變動
+  updateFavoriteIcon(store.id);
+  
   card.classList.add("open");
   card.removeAttribute("hidden");
 }
