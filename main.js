@@ -49,11 +49,12 @@ function renderStoreMarkers(storeList) {
       position: { lat: store.lat, lng: store.lng },
       map,
       title: store.name,
-       icon: {
-        url: "img/icons/marker_pink_circle.png", // 換成你的泡泡 icon 圖
-        scaledSize: new google.maps.Size(36, 36)
+      icon: {
+        url: "img/icons/icon_location.png",
+        scaledSize: new google.maps.Size(32, 32)
       }
     });
+
     marker.addListener("click", () => {
       openExpandedCard(store);
     });
@@ -92,31 +93,45 @@ function renderStoreCards(storeList) {
   });
 }
 
+
 function openExpandedCard(store) {
   const card = document.getElementById("expanded-card");
   const images = document.getElementById("expanded-images");
   const tags = document.getElementById("expanded-tags");
 
+  // 店名、距離、地址、描述、接客方式
   document.getElementById("expanded-name").textContent = store.name;
   document.getElementById("expanded-distance").textContent = store.distance;
   document.getElementById("expanded-address").textContent = store.address;
-  document.getElementById("expanded-description").textContent = store.description;
 
-  images.innerHTML = store.images.map(img => `<img src="${img}" alt="${store.name}">`).join("");
-  tags.innerHTML = store.services.map(s => `<span>${s}</span>`).join("");
+  const descriptionText = `${store.method}｜${store.description}`;
+  document.getElementById("expanded-description").textContent = descriptionText;
 
+  // 輪播圖顯示
+  images.innerHTML = store.images
+    .map((img) => `<img src="${img}" alt="${store.name}">`)
+    .join("");
+
+  // 類別 chip（使用 style.css 的 .expanded-tags 樣式）
+  tags.innerHTML = store.services
+    .map((s) => `<span>${s}</span>`)
+    .join("");
+
+  // 四個按鈕設定
   document.getElementById("btn-line").href = store.line || "#";
   document.getElementById("btn-ig").href = store.ig || "#";
-  document.getElementById("btn-direction").href =
-    `https://www.google.com/maps/dir/?api=1&destination=${store.lat},${store.lng}`;
+  document.getElementById("btn-direction").href = `https://www.google.com/maps/dir/?api=1&destination=${store.lat},${store.lng}`;
   document.getElementById("btn-booking").href = store.booking || "#";
-  
-// ✅ 加上這一行：讓右下收藏 icon 跟著狀態變動
-  updateFavoriteIcon(store.id);
-  
+
+  // 顯示展開卡片
   card.classList.add("open");
   card.removeAttribute("hidden");
+
+  // 更新右下收藏 icon 狀態
+  updateFavoriteIcon(store.id);
 }
+
+
 
 document.getElementById("btn-close-expanded").addEventListener("click", () => {
   const card = document.getElementById("expanded-card");
