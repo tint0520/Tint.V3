@@ -2,6 +2,7 @@
 
 let map;
 let markers = [];
+let currentStore = null;
 
 // ✅ 1. 動態載入 Google Maps API
 function loadGoogleMapsScript() {
@@ -93,13 +94,12 @@ function renderStoreCards(storeList) {
   });
 }
 
-
 function openExpandedCard(store) {
+  currentStore = store;
   const card = document.getElementById("expanded-card");
   const images = document.getElementById("expanded-images");
   const tags = document.getElementById("expanded-tags");
 
-  // 店名、距離、地址、描述、接客方式
   document.getElementById("expanded-name").textContent = store.name;
   document.getElementById("expanded-distance").textContent = store.distance;
   document.getElementById("expanded-address").textContent = store.address;
@@ -107,30 +107,24 @@ function openExpandedCard(store) {
   const descriptionText = `${store.method}｜${store.description}`;
   document.getElementById("expanded-description").textContent = descriptionText;
 
-  // 輪播圖顯示
   images.innerHTML = store.images
     .map((img) => `<img src="${img}" alt="${store.name}">`)
     .join("");
 
-  // 類別 chip（使用 style.css 的 .expanded-tags 樣式）
   tags.innerHTML = store.services
     .map((s) => `<span>${s}</span>`)
     .join("");
 
-  // 四個按鈕設定
   document.getElementById("btn-line").href = store.line || "#";
   document.getElementById("btn-ig").href = store.ig || "#";
   document.getElementById("btn-direction").href = `https://www.google.com/maps/dir/?api=1&destination=${store.lat},${store.lng}`;
   document.getElementById("btn-booking").href = store.booking || "#";
 
-  // 顯示展開卡片
+  updateFavoriteIcon(store.id);
+
   card.classList.add("open");
   card.removeAttribute("hidden");
-
-  // 更新右下收藏 icon 狀態
-  updateFavoriteIcon(store.id);
 }
-
 
 
 document.getElementById("btn-close-expanded").addEventListener("click", () => {
@@ -144,11 +138,16 @@ document.getElementById("btn-view-services").addEventListener("click", () => {
   modal.classList.add("open");
   modal.removeAttribute("hidden");
 
-  document.getElementById("price-list").innerHTML = `
-    <div class="price-item"><span>光療凝膠</span><span>NT$800~1000</span></div>
-    <div class="price-item"><span>基礎保養</span><span>NT$500~700</span></div>
-    <div class="price-item"><span>卸甲加購</span><span>NT$200~300</span></div>
-  `;
+  const list = document.getElementById("price-list");
+  list.innerHTML = "";
+
+  if (currentStore && Array.isArray(currentStore.prices)) {
+    currentStore.prices.forEach((item) => {
+      list.innerHTML += `<div class="price-item"><span>${item.name}</span><span>${item.price}</span></div>`;
+    });
+  } else {
+    list.innerHTML = `<p style="padding: 16px; color: #888;">尚未提供服務資訊</p>`;
+  }
 });
 
 document.getElementById("btn-close-modal").addEventListener("click", () => {
