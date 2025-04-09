@@ -49,12 +49,11 @@ function renderStoreMarkers(storeList) {
       position: { lat: store.lat, lng: store.lng },
       map,
       title: store.name,
-      icon: {
-        url: "img/icons/icon_location.png",
-        scaledSize: new google.maps.Size(32, 32)
+       icon: {
+        url: "img/icons/marker_pink_circle.png", // 換成你的泡泡 icon 圖
+        scaledSize: new google.maps.Size(36, 36)
       }
     });
-
     marker.addListener("click", () => {
       openExpandedCard(store);
     });
