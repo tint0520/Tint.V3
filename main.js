@@ -1,3 +1,34 @@
+// ===== Tint Maps - main.js (方法 A：從 config.js 讀取金鑰) =====
+
+// ✅ 1. 動態載入 Google Maps API
+function loadGoogleMapsScript() {
+  const script = document.createElement("script");
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.GOOGLE_MAPS_API_KEY}&callback=initMap&libraries=places`;
+  script.async = true;
+  script.defer = true;
+  document.head.appendChild(script);
+}
+
+// ✅ 2. 定義 Google Maps callback（API 載入後觸發）
+window.initMap = function () {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: CONFIG.DEFAULT_CENTER,
+    zoom: CONFIG.DEFAULT_ZOOM,
+    disableDefaultUI: true,
+    styles: CONFIG.USE_CUSTOM_MAP_STYLE ? getCustomMapStyle() : null
+  });
+
+  renderStoreMarkers(stores);
+  renderStoreCards(stores);
+};
+
+// ✅ 3. 頁面載入完成 → 開始載入 Google Maps script
+window.addEventListener("load", () => {
+  loadGoogleMapsScript();
+});
+
+
+
 // ===== main.js 第 1 段：地圖初始化與店家渲染 =====
 
 let map;
