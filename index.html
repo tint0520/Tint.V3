@@ -1,0 +1,104 @@
+<!-- index.html - Tint Maps 手機版主頁 -->
+<!-------------------------------------index.html第 1 段：head 區塊------------------------------------------------>
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#ffeff3" />
+  <title>Tint Maps - 美業地圖平台</title>
+
+  <!-- 手機字體設定 -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- 主樣式 -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Maps API 載入（動態填入金鑰） -->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=places">
+  </script>
+
+  <!-- 自訂地圖樣式設定（粉色系） -->
+  <script type="application/json" id="map-style" src="map-style.json"></script>
+</head>
+
+ <!-------------------------------------------index.html第 2 段：body 區塊 --------------------------------------------------------------->
+
+  <body>
+  <!-- 📍 地圖容器 -->
+  <div id="map"></div>
+
+  <!-- 🔍 搜尋欄 -->
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="搜尋美業店家或服務" />
+    <button id="btn-search">
+      <img src="img/icons/icon_search.png" alt="搜尋">
+    </button>
+  </div>
+
+  <!-- 💳 小卡片列表 -->
+  <div class="card-scroll" id="card-scroll">
+    <!-- 小卡將由 JS 動態插入 -->
+  </div>
+
+  <!-- 📌 右下浮動按鈕 -->
+  <div class="floating-icons">
+    <button id="btn-location">
+      <img src="img/icons/icon_location.png" alt="我的位置">
+    </button>
+    <button id="btn-collection">
+      <img src="img/icons/icon_heart.png" alt="收藏">
+    </button>
+  </div>
+
+  <!-- 🧾 展開卡片（大卡） -->
+  <div class="expanded-card" id="expanded-card" hidden>
+    <button class="close-expanded" id="btn-close-expanded">
+      <img src="img/icons/icon_close.png" alt="關閉">
+    </button>
+    <div class="expanded-images" id="expanded-images">
+      <!-- 店家圖片輪播 -->
+    </div>
+    <div class="expanded-info">
+      <h2 id="expanded-name"></h2>
+      <p id="expanded-distance"></p>
+      <p id="expanded-address"></p>
+      <p id="expanded-description"></p>
+      <div class="expanded-tags" id="expanded-tags"></div>
+      <div class="expanded-actions">
+        <a id="btn-line" target="_blank"><img src="img/icons/icon_line.png" alt="LINE"></a>
+        <a id="btn-ig" target="_blank"><img src="img/icons/icon_instagram.png" alt="IG"></a>
+        <a id="btn-direction" target="_blank"><img src="img/icons/icon_direction.png" alt="導航"></a>
+        <a id="btn-booking" target="_blank"><img src="img/icons/icon_submit.png" alt="預約"></a>
+      </div>
+      <button class="view-service" id="btn-view-services">
+        <img src="img/icons/btn_view_services.png" alt="查看服務項目">
+      </button>
+    </div>
+  </div>
+
+  <!-- 💰 價格浮窗 -->
+  <div class="price-modal" id="price-modal" hidden>
+    <div class="modal-header">
+      <span>服務項目與價格</span>
+      <button class="close-modal" id="btn-close-modal">
+        <img src="img/icons/icon_close.png" alt="關閉">
+      </button>
+    </div>
+    <div class="modal-body" id="price-list">
+      <!-- 價格項目由 JS 動態生成 -->
+    </div>
+  </div>
+</body>
+
+
+
+<!------------------------------------------------------index.html 第 3 段：script 區塊 --------------------------------------------------------------------->
+<!-- 🔧 引入設定與邏輯腳本 -->
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="main.js"></script>
+
+</html>
