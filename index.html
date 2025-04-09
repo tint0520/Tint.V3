@@ -9,6 +9,13 @@
   <meta name="theme-color" content="#ffeff3" />
   <title>Tint Maps - 美業地圖平台</title>
 
+  <!-- SEO meta -->
+<meta name="description" content="Tint Maps 美業地圖，幫助你快速找到附近的美甲、美睫、臉部保養店家">
+<meta property="og:title" content="Tint Maps - 美業地圖平台" />
+<meta property="og:description" content="一鍵導航美甲美睫店家，快速預約與收藏" />
+<meta property="og:image" content="https://你的網址/logo.png" />
+<meta property="og:type" content="website" />
+
   <!-- favicon.ico 用途：瀏覽器標籤小圖示 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet" />
  
@@ -24,6 +31,17 @@
 
   <!-- 自訂地圖樣式設定（粉色系） -->
   <script type="application/json" id="map-style" src="map-style.json"></script>
+
+
+  <!-- GA 分析碼（建議放最底） -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=你的GA-ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '你的GA-ID');
+  </script>
+  
 </head>
 
  <!-------------------------------------------index.html第 2 段：body 區塊 --------------------------------------------------------------->
